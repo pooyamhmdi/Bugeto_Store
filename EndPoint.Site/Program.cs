@@ -1,4 +1,6 @@
 ﻿using Bugeto_Store.Application.Interfaces.Contexts;
+using Bugeto_Store.Application.Services.Users.Queries.GetRoles;
+using Bugeto_Store.Application.Services.Users.Queries.GetUsers;
 using Bugeto_Store.Presistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,6 +15,8 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 builder.Services.AddScoped<IDatabaseContext, DatabaseContext>();
+builder.Services.AddScoped<IGetUsersService, GetUsersService>();
+builder.Services.AddScoped<IGetRolesService, GetRolesService>();
 
 
 // ثبت Scoped برای اینترفیس
