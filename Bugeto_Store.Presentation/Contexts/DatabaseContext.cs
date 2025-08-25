@@ -1,10 +1,12 @@
 ﻿using Bugeto_Store.Application.Interfaces.Contexts;
 using Bugeto_Store.Common.Roles;
+using Bugeto_Store.Domain.Entities.Products;
 using Bugeto_Store.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 namespace Bugeto_Store.Presistence.Contexts
@@ -18,33 +20,33 @@ namespace Bugeto_Store.Presistence.Contexts
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserInRole> UserInRoles { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
-        public int Savechanges(bool acceptAllChangesOnSucces)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int Savechanges()
-        {
-            throw new NotImplementedException();
-        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Role>().HasData(new Role
-            {
-                Id = 1,
-                Name = nameof(UserRoles.Admin),
-            });
-            modelBuilder.Entity<Role>().HasData(new Role
-            {
-                Id = 2,
-                Name = nameof(UserRoles.Operator),
-            });
-            modelBuilder.Entity<Role>().HasData(new Role
-            {
-                Id = 3,
-                Name = nameof(UserRoles.Customer),
-            });
+            //اعمال ایندکس بر روی فیلد ایمیل
+            //اعمال عدم تکراری بودن  ایمیل
+            modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
+            //seedData
+            //اضافه کردن مقادیر پیشفرض به جدول Roles
+            SeedData(modelBuilder);
+
+
+            ApplyQueryFilter(modelBuilder);
+        }
+        private void ApplyQueryFilter(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().HasQueryFilter(p => !p.IsRemoved);
+            modelBuilder.Entity<Role>().HasQueryFilter(p => !p.IsRemoved);
+            modelBuilder.Entity<UserInRole>().HasQueryFilter(p => !p.IsRemoved);
+            modelBuilder.Entity<Category>().HasQueryFilter(p => !p.IsRemoved);
+        }
+
+        private void SeedData(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Role>().HasData(new Role { Id = 1, Name = nameof(UserRoles.Admin),InsertTime = new DateTime(2023,01,01), IsRemoved = false});
+            modelBuilder.Entity<Role>().HasData(new Role { Id = 2, Name = nameof(UserRoles.Operator), InsertTime = new DateTime(2023, 01, 01), IsRemoved = false });
+            modelBuilder.Entity<Role>().HasData(new Role { Id = 3, Name = nameof(UserRoles.Customer), InsertTime = new DateTime(2023, 01, 01), IsRemoved = false });
         }
 
     }

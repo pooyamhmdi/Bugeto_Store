@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Bugeto_Store.Application\Bugeto_Store.Application.csproj" />
     <ProjectReference Include="..\Bugeto_Store.Presentation\Bugeto_Store.Presistence.csproj" />
   </ItemGroup>
 

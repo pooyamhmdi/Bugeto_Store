@@ -10,7 +10,7 @@ namespace Bugeto_Store.Application.Services.Users.Queries.GetUsers
         {
             _context = context;
         }
-        public ResaultGetUsersDto Execute(RequestGetUsersDto request)
+        public ResultGetUsersDto Execute(RequestGetUsersDto request)
         {
             var users = _context.Users.AsQueryable();
             if (!string.IsNullOrWhiteSpace(request.SearchKey))
@@ -23,8 +23,9 @@ namespace Bugeto_Store.Application.Services.Users.Queries.GetUsers
                 Id = p.Id,
                 FullName = p.FullName,
                 Email = p.Email,
+                IsActive = p.IsActive,
             }).ToList();
-            return new ResaultGetUsersDto
+            return new ResultGetUsersDto
             {
                 Rows = RowCount,
                 Users = UsersList,

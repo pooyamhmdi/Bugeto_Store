@@ -1,6 +1,8 @@
-﻿namespace Bugeto_Store.Domain.Entities.Users
+﻿using Bugeto_Store.Domain.Entities.Common;
+
+namespace Bugeto_Store.Domain.Entities.Users
 {
-    public class Role
+    public class Role:BaseEntity
     {
         public long Id { get; set; }
         public string Name { get; set; }    

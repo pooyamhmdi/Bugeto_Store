@@ -2,7 +2,7 @@
 {
     public partial class GetUsersService
     {
-        public class ResaultGetUsersDto
+        public class ResultGetUsersDto
         {
             public List<GetUsersDto> Users { get; set; }
             public int Rows { get; set; }

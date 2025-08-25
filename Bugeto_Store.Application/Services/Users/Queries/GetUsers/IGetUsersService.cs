@@ -9,6 +9,6 @@ namespace Bugeto_Store.Application.Services.Users.Queries.GetUsers
 {
     public interface IGetUsersService
     {
-        ResaultGetUsersDto Execute(RequestGetUsersDto request);
+        ResultGetUsersDto Execute(RequestGetUsersDto request);
     }
 }
