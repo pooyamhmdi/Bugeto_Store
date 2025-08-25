@@ -1,4 +1,7 @@
 ﻿using Bugeto_Store.Application.Interfaces.Contexts;
+using Bugeto_Store.Application.Interfaces.FacadPatterns;
+using Bugeto_Store.Application.Services.Products.Commands.RemoveCategory;
+using Bugeto_Store.Application.Services.Products.FacadPattern;
 using Bugeto_Store.Application.Services.Users.Commands.EditUser;
 using Bugeto_Store.Application.Services.Users.Commands.LoginUser;
 using Bugeto_Store.Application.Services.Users.Commands.RegisterUser;
@@ -8,6 +11,7 @@ using Bugeto_Store.Application.Services.Users.Queries.GetRoles;
 using Bugeto_Store.Application.Services.Users.Queries.GetUsers;
 using Bugeto_Store.Presistence.Contexts;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -30,6 +34,8 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddDbContext<DatabaseContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
+
+
 builder.Services.AddScoped<IDatabaseContext, DatabaseContext>();
 builder.Services.AddScoped<IGetUsersService, GetUsersService>();
 builder.Services.AddScoped<IGetRolesService, GetRolesService>();
@@ -38,9 +44,13 @@ builder.Services.AddScoped<IUserStatusChangeService ,UserStatuChangeService>();
 builder.Services.AddScoped<IRemoveUserService , RemoveUserService>();
 builder.Services.AddScoped<IEditUsersSevice , EditUsersSevice>();
 builder.Services.AddScoped<IUserLoginService, UserLoginService>();
+builder.Services.AddScoped<IRemoveCategoryService, RemoveCategoryService>();
+//facad inject
+builder.Services.AddScoped<IProductFacad, ProductFacad>();
 
 
-// ثبت Scoped برای اینترفیس
+
+
 
 
 var app = builder.Build();

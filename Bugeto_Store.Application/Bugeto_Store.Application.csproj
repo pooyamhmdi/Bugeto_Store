@@ -19,10 +19,4 @@
     <ProjectReference Include="..\Bugeto_Store.Domain\Bugeto_Store.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\Products\Commands\" />
-    <Folder Include="Services\Products\FacadPattern\" />
-    <Folder Include="Services\Products\Queries\" />
-  </ItemGroup>
-
 </Project>
