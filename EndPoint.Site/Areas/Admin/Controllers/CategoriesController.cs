@@ -9,14 +9,12 @@ namespace EndPoint.Site.Areas.Admin.Controllers
     public class CategoriesController : Controller
     {
         private readonly IProductFacad _productFacad;
-        private readonly IRemoveCategoryService _removeCategoryService;
         public CategoriesController(
             IProductFacad productFacad,
             IRemoveCategoryService removeCategoryService
             )
         {
             _productFacad = productFacad;
-            _removeCategoryService = removeCategoryService;
         }
         public IActionResult Index(long? parentId)
         {
@@ -37,7 +35,7 @@ namespace EndPoint.Site.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Delete(long categoryId)
         {
-            return Json(_removeCategoryService.Execute(categoryId));
+            return Json(_productFacad.RemoveCategoryService.Execute(categoryId));
         }
     }
 }

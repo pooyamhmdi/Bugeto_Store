@@ -1,4 +1,7 @@
 ﻿using Bugeto_Store.Application.Services.Products.Commands.AddNewCategory;
+using Bugeto_Store.Application.Services.Products.Commands.AddNewProduct;
+using Bugeto_Store.Application.Services.Products.Commands.RemoveCategory;
+using Bugeto_Store.Application.Services.Products.Queries.GetAllCategory;
 using Bugeto_Store.Application.Services.Products.Queries.GetCategories;
 using Bugeto_Store.Application.Services.Users.Queries.GetRoles;
 using System;
@@ -13,5 +16,8 @@ namespace Bugeto_Store.Application.Interfaces.FacadPatterns
     {
         AddNewCategoryService AddNewCategoryService { get; }
         IGetCategoriesService GetCategoriesService { get; }
+        IRemoveCategoryService RemoveCategoryService { get; }
+        AddNewProductService addNewProductService { get; }
+        IGetAllCategoryService GetAllCategoryService { get; }
     }
 }

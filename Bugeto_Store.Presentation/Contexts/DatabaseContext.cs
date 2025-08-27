@@ -21,6 +21,9 @@ namespace Bugeto_Store.Presistence.Contexts
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserInRole> UserInRoles { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductFeatures> ProductsFeatures { get; set; }
+        public DbSet<ProductImages> ProductImages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -44,7 +47,7 @@ namespace Bugeto_Store.Presistence.Contexts
 
         private void SeedData(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Role>().HasData(new Role { Id = 1, Name = nameof(UserRoles.Admin),InsertTime = new DateTime(2023,01,01), IsRemoved = false});
+            modelBuilder.Entity<Role>().HasData(new Role { Id = 1, Name = nameof(UserRoles.Admin), InsertTime = new DateTime(2023, 01, 01), IsRemoved = false });
             modelBuilder.Entity<Role>().HasData(new Role { Id = 2, Name = nameof(UserRoles.Operator), InsertTime = new DateTime(2023, 01, 01), IsRemoved = false });
             modelBuilder.Entity<Role>().HasData(new Role { Id = 3, Name = nameof(UserRoles.Customer), InsertTime = new DateTime(2023, 01, 01), IsRemoved = false });
         }
