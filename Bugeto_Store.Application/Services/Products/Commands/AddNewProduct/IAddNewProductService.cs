@@ -33,7 +33,7 @@ namespace Bugeto_Store.Application.Services.Products.Commands.AddNewProduct
         public ResultDto Execute(RequestAddNewProductDto request)
         {
             try
-            {
+             {
                 var category = _context.Categories.Find(request.CategoryId);
                 Product product = new Product()
                 {

@@ -343,7 +343,7 @@ namespace Bugeto_Store.Presistence.Migrations
             modelBuilder.Entity("Bugeto_Store.Domain.Entities.Products.ProductImages", b =>
                 {
                     b.HasOne("Bugeto_Store.Domain.Entities.Products.Product", "Product")
-                        .WithMany("productImages")
+                        .WithMany("ProductImages")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -379,7 +379,7 @@ namespace Bugeto_Store.Presistence.Migrations
                 {
                     b.Navigation("ProductFeatures");
 
-                    b.Navigation("productImages");
+                    b.Navigation("ProductImages");
                 });
 
             modelBuilder.Entity("Bugeto_Store.Domain.Entities.Users.Role", b =>

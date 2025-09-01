@@ -3,8 +3,13 @@ using Bugeto_Store.Application.Interfaces.FacadPatterns;
 using Bugeto_Store.Application.Services.Products.Commands.AddNewCategory;
 using Bugeto_Store.Application.Services.Products.Commands.AddNewProduct;
 using Bugeto_Store.Application.Services.Products.Commands.RemoveCategory;
+using Bugeto_Store.Application.Services.Products.Commands.RemoveProduct;
 using Bugeto_Store.Application.Services.Products.Queries.GetAllCategory;
 using Bugeto_Store.Application.Services.Products.Queries.GetCategories;
+using Bugeto_Store.Application.Services.Products.Queries.GetProductDetailForAdmin;
+using Bugeto_Store.Application.Services.Products.Queries.GetProductForAdmin;
+using Bugeto_Store.Application.Services.Products.Queries.GetProductForSite;
+using Bugeto_Store.Application.Services.Products.Queries.GetProductDetailForSite;
 using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;
@@ -55,7 +60,7 @@ namespace Bugeto_Store.Application.Services.Products.FacadPattern
         {
             get
             {
-                return _addNewProduct = _addNewProduct ?? new AddNewProductService(_context,_environment);
+                return _addNewProduct = _addNewProduct ?? new AddNewProductService(_context, _environment);
             }
         }
         private IGetAllCategoryService _getAllCategories;
@@ -65,6 +70,49 @@ namespace Bugeto_Store.Application.Services.Products.FacadPattern
             get
             {
                 return _getAllCategories = _getAllCategories ?? new GetAllCategoryService(_context);
+            }
+        }
+
+        private IGetProductForAdminService _getProductForAdminService;
+        public IGetProductForAdminService GetProductForAdminService
+        {
+            get
+            {
+                return _getProductForAdminService = _getProductForAdminService ?? new GetProductForAdminService(_context);
+            }
+        }
+        private IRemoveProductService _removeProductService;
+        public IRemoveProductService RemoveProductForAdminService
+        {
+            get
+            {
+                return _removeProductService = _removeProductService ?? new RemoveProductService(_context);
+            }
+        }
+        private IGetProductDetailForAdminService _getProductDetailForAdminService;
+        public IGetProductDetailForAdminService GetProductDetailForAdminService
+        {
+            get
+            {
+                return _getProductDetailForAdminService = _getProductDetailForAdminService ?? new GetProductDetailForAdminService(_context);
+            }
+        }
+        private IGetProductForSiteService _getProducForSiteService;
+
+        public IGetProductForSiteService GetProductForSiteService
+        {
+            get
+            {
+                return _getProducForSiteService = _getProducForSiteService ?? new GetProductForSiteService(_context);
+            }
+        }
+        private IGetProductDetailForSiteService _getProductDetailForSiteService;
+
+        public IGetProductDetailForSiteService GetProductDetailForSiteService
+        {
+            get
+            {
+                return _getProductDetailForSiteService = _getProductDetailForSiteService ?? new GetProductDetailForSiteService(_context);
             }
         }
 

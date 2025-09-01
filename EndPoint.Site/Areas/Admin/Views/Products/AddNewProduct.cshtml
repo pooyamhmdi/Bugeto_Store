@@ -188,7 +188,7 @@
             data.append("Brand", $("#Brand").val());
             data.append("Price", $("#Price").val());
             data.append("Inventory", $("#Inventory").val());
-            data.append("Displayed", $("#Displayed").attr("checked") ? true : false);
+            data.append("Displayed", $("#Displayed").prop("checked") ? true : false);
             data.append("CategoryId", $('#Category').find('option:selected').val());
             data.append("Description", $("#Description").val());
 
