@@ -38,16 +38,19 @@
         <div class="product-items">
             <div class="tab-content" id="myTabContent">
 
-                @foreach (var item in Model.Products)
-                {
 
 
-                    <div class="tab-pane fade show active" id="Most-visited" role="tabpanel" aria-labelledby="Most-visited-tab">
-                        <div class="row">
+
+                <div class="tab-pane fade show active" id="Most-visited" role="tabpanel" aria-labelledby="Most-visited-tab">
+                    <div class="row">
+
+                        @foreach (var item in Model.Products)
+                        {
+
                             <div class="col-lg-3 col-md-3 col-xs-12 order-1 d-block mb-3">
                                 <section class="product-box product product-type-simple">
                                     <div class="thumb">
-                                        <a href="#" class="d-block">
+                                        <a href="~/products/detail/@item.Id" class="d-block">
 
                                             <div class="product-rate">
 
@@ -60,7 +63,7 @@
                                                     <i class="fa fa-star"></i>
                                                 }
                                             </div>
-                                            <img src="~/@item.ImageSrc">
+                                            <img width="400" height="300" src="~/@item.ImageSrc">
                                         </a>
                                     </div>
                                     <div class="title">
@@ -73,12 +76,13 @@
                                         </span>
                                     </div>
                                 </section>
+
                             </div>
-
-                        </div>
+                        }
                     </div>
+                </div>
 
-                }
+
             </div>
         </div>
         <div class="pagination-product">

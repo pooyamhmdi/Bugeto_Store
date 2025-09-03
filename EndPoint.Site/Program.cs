@@ -1,5 +1,7 @@
 ﻿using Bugeto_Store.Application.Interfaces.Contexts;
 using Bugeto_Store.Application.Interfaces.FacadPatterns;
+using Bugeto_Store.Application.Services.Common.Queries.GetCategory;
+using Bugeto_Store.Application.Services.Common.Queries.GetMenuItem;
 using Bugeto_Store.Application.Services.Products.Commands.RemoveCategory;
 using Bugeto_Store.Application.Services.Products.FacadPattern;
 using Bugeto_Store.Application.Services.Users.Commands.EditUser;
@@ -47,6 +49,9 @@ builder.Services.AddScoped<IUserLoginService, UserLoginService>();
 builder.Services.AddScoped<IRemoveCategoryService, RemoveCategoryService>();
 //facad inject
 builder.Services.AddScoped<IProductFacad, ProductFacad>();
+//menu & search
+builder.Services.AddScoped<IGetMenuItemService, GetMenuItemService>();
+builder.Services.AddScoped<IGetCategoryService, GetCategoryService>();
 
 
 
