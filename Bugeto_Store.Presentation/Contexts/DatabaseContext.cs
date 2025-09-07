@@ -13,8 +13,16 @@ namespace Bugeto_Store.Presistence.Contexts
 {
     public class DatabaseContext : DbContext, IDatabaseContext
     {
+        string connectionString = "Server=.;Database=Bugeto_StoreDb;Trusted_Connection=True;";
         public DatabaseContext(DbContextOptions options) : base(options)
         {
+            //options.UseSqlServer(connectionString, sqlOptions =>
+            //{
+            //    sqlOptions.EnableRetryOnFailure(
+            //        maxRetryCount: 5,
+            //        maxRetryDelay: TimeSpan.FromSeconds(10),
+            //        errorNumbersToAdd: null);
+            //});
 
         }
         public DbSet<User> Users { get; set; }

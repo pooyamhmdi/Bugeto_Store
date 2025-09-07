@@ -25,6 +25,8 @@ namespace Bugeto_Store.Application.Services.Products.Queries.GetProductDetailFor
             {
                 throw new Exception("Product Not Found");
             }
+            Product.ViewCount++;
+            _context.SaveChanges();
             return new ResultDto<ProductDetailForSiteDto>
             {
                 Data = new ProductDetailForSiteDto

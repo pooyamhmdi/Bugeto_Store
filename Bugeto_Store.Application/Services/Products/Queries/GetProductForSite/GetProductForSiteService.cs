@@ -14,7 +14,7 @@ namespace Bugeto_Store.Application.Services.Products.Queries.GetProductForSite
         }
 
 
-        public ResultDto<ResultProductForSiteDto> Execute(string SearchKey,long? CatId, int Page)
+        public ResultDto<ResultProductForSiteDto> Execute(Ordering ordering, string SearchKey, long? CatId, int Page, int pageSize)
         {
             int totalRow = 0;
             var productQuery = _context.Products
@@ -27,7 +27,33 @@ namespace Bugeto_Store.Application.Services.Products.Queries.GetProductForSite
             {
                 productQuery = productQuery.Where(p => p.Name.Contains(SearchKey) || p.Brand.Contains(SearchKey)).AsQueryable();
             }
-            var product = productQuery.ToPaged(Page, 20, out totalRow);
+            switch (ordering)
+            {
+                case Ordering.NotOrder:
+                    productQuery = productQuery.OrderByDescending(p => p.Id).AsQueryable();
+                    break;
+                case Ordering.MostVisited:
+                    productQuery = productQuery.OrderByDescending(p => p.ViewCount).AsQueryable();
+                    break;
+                case Ordering.Bestselling:
+                    break;
+                case Ordering.MostPopular:
+                    productQuery = productQuery.OrderByDescending(p => p.Id).AsQueryable();
+                    break;
+                case Ordering.theNewest:
+                    productQuery = productQuery.OrderByDescending(p => p.Id).AsQueryable();
+                    break;
+                case Ordering.Cheapest:
+                    productQuery = productQuery.OrderBy(p => p.Price).AsQueryable();
+                    break;
+                case Ordering.theMostExpensive:
+                    productQuery = productQuery.OrderByDescending(p => p.Price).AsQueryable();
+                    break;
+                default:
+                    break;
+
+            }
+            var product = productQuery.ToPaged(Page, pageSize, out totalRow);
             Random random = new Random();
             return new ResultDto<ResultProductForSiteDto>
             {

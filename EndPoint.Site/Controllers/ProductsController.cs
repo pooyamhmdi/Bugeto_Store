@@ -1,4 +1,5 @@
 ﻿using Bugeto_Store.Application.Interfaces.FacadPatterns;
+using Bugeto_Store.Application.Services.Products.Queries.GetProductForSite;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EndPoint.Site.Controllers
@@ -10,9 +11,9 @@ namespace EndPoint.Site.Controllers
         {
             _productFacad = productFacad;
         }
-        public IActionResult Index(string SearchKey ,int page,long? CatId = null )
+        public IActionResult Index(Ordering ordering,string SearchKey ,int page = 1,long? CatId = null, int pageSize = 20 )
         {
-            return View(_productFacad.GetProductForSiteService.Execute(SearchKey, CatId,page).Data);
+            return View(_productFacad.GetProductForSiteService.Execute(ordering,SearchKey, CatId,page,pageSize).Data);
         }
         public IActionResult Detail(long Id)
         {

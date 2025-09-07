@@ -15,6 +15,7 @@ namespace Bugeto_Store.Domain.Entities.Products
 
         public string Description { get; set; }
         public int Inventory { get; set; }
+        public int ViewCount {  get; set; }
         public bool Displayed { get; set; }
         public virtual Category Category { get; set; }
         public long CategoryId { get; set; }
