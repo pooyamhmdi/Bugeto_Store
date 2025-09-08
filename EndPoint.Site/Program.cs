@@ -2,6 +2,10 @@
 using Bugeto_Store.Application.Interfaces.FacadPatterns;
 using Bugeto_Store.Application.Services.Common.Queries.GetCategory;
 using Bugeto_Store.Application.Services.Common.Queries.GetMenuItem;
+using Bugeto_Store.Application.Services.Common.Queries.GetSliders;
+using Bugeto_Store.Application.Services.HomePages.AddNewSlider;
+using Bugeto_Store.Application.Services.HomePages.FacadPattern;
+using Bugeto_Store.Application.Services.HomePages.GetAllSlidersForAdmin;
 using Bugeto_Store.Application.Services.Products.Commands.RemoveCategory;
 using Bugeto_Store.Application.Services.Products.FacadPattern;
 using Bugeto_Store.Application.Services.Users.Commands.EditUser;
@@ -53,6 +57,9 @@ builder.Services.AddScoped<IProductFacad, ProductFacad>();
 builder.Services.AddScoped<IGetMenuItemService, GetMenuItemService>();
 builder.Services.AddScoped<IGetCategoryService, GetCategoryService>();
 
+//homepages sliders
+builder.Services.AddScoped<ISlidersFacad, SlidersFacad>();
+builder.Services.AddScoped<IGetSlidersService, GetSlidersService>();
 
 
 
@@ -68,7 +75,7 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
+app.UseStaticFiles();
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseAuthorization();

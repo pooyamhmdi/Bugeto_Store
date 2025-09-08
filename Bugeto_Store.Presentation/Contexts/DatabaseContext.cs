@@ -1,5 +1,6 @@
 ﻿using Bugeto_Store.Application.Interfaces.Contexts;
 using Bugeto_Store.Common.Roles;
+using Bugeto_Store.Domain.Entities.HomePages;
 using Bugeto_Store.Domain.Entities.Products;
 using Bugeto_Store.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
@@ -32,6 +33,7 @@ namespace Bugeto_Store.Presistence.Contexts
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductFeatures> ProductsFeatures { get; set; }
         public DbSet<ProductImages> ProductImages { get; set; }
+        public DbSet<Slider> Sliders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -42,7 +44,7 @@ namespace Bugeto_Store.Presistence.Contexts
             //اضافه کردن مقادیر پیشفرض به جدول Roles
             SeedData(modelBuilder);
 
-
+            //عدم نمایش اطلاعات حذف شده
             ApplyQueryFilter(modelBuilder);
         }
         private void ApplyQueryFilter(ModelBuilder modelBuilder)
@@ -51,6 +53,11 @@ namespace Bugeto_Store.Presistence.Contexts
             modelBuilder.Entity<Role>().HasQueryFilter(p => !p.IsRemoved);
             modelBuilder.Entity<UserInRole>().HasQueryFilter(p => !p.IsRemoved);
             modelBuilder.Entity<Category>().HasQueryFilter(p => !p.IsRemoved);
+            modelBuilder.Entity<Product>().HasQueryFilter(p => !p.IsRemoved);
+            modelBuilder.Entity<ProductFeatures>().HasQueryFilter(p => !p.IsRemoved);
+            modelBuilder.Entity<ProductImages>().HasQueryFilter(p => !p.IsRemoved);
+            modelBuilder.Entity<Slider>().HasQueryFilter(p => !p.IsRemoved);
+
         }
 
         private void SeedData(ModelBuilder modelBuilder)
