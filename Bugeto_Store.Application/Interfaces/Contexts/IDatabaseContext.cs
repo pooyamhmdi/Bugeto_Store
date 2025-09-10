@@ -23,6 +23,7 @@ namespace Bugeto_Store.Application.Interfaces.Contexts
         DbSet<ProductFeatures> ProductsFeatures { get; set; }
         DbSet<ProductImages> ProductImages { get; set; }
         DbSet<Slider> Sliders { get; set; }
+        DbSet<HomePageImages> HomePageImages { get; set; }
 
         int SaveChanges(bool acceptAllChangesOnSuccess);
         int SaveChanges();

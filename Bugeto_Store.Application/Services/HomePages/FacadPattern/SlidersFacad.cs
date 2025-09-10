@@ -1,8 +1,9 @@
 ﻿using Bugeto_Store.Application.Interfaces.Contexts;
 using Bugeto_Store.Application.Interfaces.FacadPatterns;
-using Bugeto_Store.Application.Services.HomePages.AddNewSlider;
-using Bugeto_Store.Application.Services.HomePages.GetAllSlidersForAdmin;
-using Bugeto_Store.Application.Services.HomePages.RemoveSlidersForAdmin;
+using Bugeto_Store.Application.Services.Common.Queries.GetSliders;
+using Bugeto_Store.Application.Services.HomePages.Commands.AddNewSlider;
+using Bugeto_Store.Application.Services.HomePages.Commands.RemoveSlidersForAdmin;
+using Bugeto_Store.Application.Services.HomePages.Queries.GetAllSlidersForAdmin;
 using Bugeto_Store.Application.Services.Products.Commands.AddNewCategory;
 using Bugeto_Store.Application.Services.Products.Commands.AddNewProduct;
 using Bugeto_Store.Application.Services.Products.Commands.RemoveCategory;
@@ -54,6 +55,15 @@ namespace Bugeto_Store.Application.Services.HomePages.FacadPattern
             get
             {
                 return _removeSlidersForAdminService = _removeSlidersForAdminService ?? new RemoveSlidersForAdminService(_context);
+            }
+        }
+
+        private IGetSlidersService _getSlidersService;
+        public IGetSlidersService GetSlidersService
+        {
+            get
+            {
+                    return _getSlidersService = _getSlidersService  ?? new GetSlidersService(_context);
             }
         }
     }

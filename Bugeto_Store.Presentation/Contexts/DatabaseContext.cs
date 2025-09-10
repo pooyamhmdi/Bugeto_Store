@@ -34,6 +34,7 @@ namespace Bugeto_Store.Presistence.Contexts
         public DbSet<ProductFeatures> ProductsFeatures { get; set; }
         public DbSet<ProductImages> ProductImages { get; set; }
         public DbSet<Slider> Sliders { get; set; }
+        public DbSet<HomePageImages> HomePageImages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -57,6 +58,7 @@ namespace Bugeto_Store.Presistence.Contexts
             modelBuilder.Entity<ProductFeatures>().HasQueryFilter(p => !p.IsRemoved);
             modelBuilder.Entity<ProductImages>().HasQueryFilter(p => !p.IsRemoved);
             modelBuilder.Entity<Slider>().HasQueryFilter(p => !p.IsRemoved);
+            modelBuilder.Entity<HomePageImages>().HasQueryFilter(p => !p.IsRemoved);
 
         }
 

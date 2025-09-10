@@ -1,11 +1,11 @@
 ﻿using Bugeto_Store.Application.Interfaces.Contexts;
 using Bugeto_Store.Application.Interfaces.FacadPatterns;
 using Bugeto_Store.Application.Services.Common.Queries.GetCategory;
+using Bugeto_Store.Application.Services.Common.Queries.GetHomePageImages;
 using Bugeto_Store.Application.Services.Common.Queries.GetMenuItem;
 using Bugeto_Store.Application.Services.Common.Queries.GetSliders;
-using Bugeto_Store.Application.Services.HomePages.AddNewSlider;
+using Bugeto_Store.Application.Services.HomePages.Commands.AddHomePageImages;
 using Bugeto_Store.Application.Services.HomePages.FacadPattern;
-using Bugeto_Store.Application.Services.HomePages.GetAllSlidersForAdmin;
 using Bugeto_Store.Application.Services.Products.Commands.RemoveCategory;
 using Bugeto_Store.Application.Services.Products.FacadPattern;
 using Bugeto_Store.Application.Services.Users.Commands.EditUser;
@@ -59,7 +59,10 @@ builder.Services.AddScoped<IGetCategoryService, GetCategoryService>();
 
 //homepages sliders
 builder.Services.AddScoped<ISlidersFacad, SlidersFacad>();
-builder.Services.AddScoped<IGetSlidersService, GetSlidersService>();
+
+//homepages images
+builder.Services.AddScoped<IHomePageImagesFacad, HomePageImagesFacad>();
+
 
 
 

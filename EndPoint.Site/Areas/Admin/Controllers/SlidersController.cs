@@ -1,7 +1,6 @@
 ﻿using Bugeto_Store.Application.Interfaces.Contexts;
 using Bugeto_Store.Application.Interfaces.FacadPatterns;
-using Bugeto_Store.Application.Services.HomePages.AddNewSlider;
-using Bugeto_Store.Application.Services.HomePages.GetAllSlidersForAdmin;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace EndPoint.Site.Areas.Admin.Controllers
