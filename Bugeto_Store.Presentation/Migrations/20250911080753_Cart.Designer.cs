@@ -4,6 +4,7 @@ using Bugeto_Store.Presistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bugeto_Store.Presistence.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20250911080753_Cart")]
+    partial class Cart
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,9 +35,6 @@ namespace Bugeto_Store.Presistence.Migrations
 
                     b.Property<Guid>("BrowserId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("Finished")
-                        .HasColumnType("bit");
 
                     b.Property<DateTime>("InsertTime")
                         .HasColumnType("datetime2");
@@ -66,9 +66,6 @@ namespace Bugeto_Store.Presistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("CartId")
-                        .HasColumnType("bigint");
-
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
@@ -91,8 +88,6 @@ namespace Bugeto_Store.Presistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CartId");
 
                     b.HasIndex("ProductId");
 
@@ -469,19 +464,11 @@ namespace Bugeto_Store.Presistence.Migrations
 
             modelBuilder.Entity("Bugeto_Store.Domain.Entities.Cart.CartItem", b =>
                 {
-                    b.HasOne("Bugeto_Store.Domain.Entities.Cart.Cart", "Cart")
-                        .WithMany("CartItems")
-                        .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Bugeto_Store.Domain.Entities.Products.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Cart");
 
                     b.Navigation("Product");
                 });
@@ -545,11 +532,6 @@ namespace Bugeto_Store.Presistence.Migrations
                     b.Navigation("Role");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Bugeto_Store.Domain.Entities.Cart.Cart", b =>
-                {
-                    b.Navigation("CartItems");
                 });
 
             modelBuilder.Entity("Bugeto_Store.Domain.Entities.Products.Category", b =>

@@ -1,4 +1,5 @@
-﻿using Bugeto_Store.Domain.Entities.HomePages;
+﻿using Bugeto_Store.Domain.Entities.Cart;
+using Bugeto_Store.Domain.Entities.HomePages;
 using Bugeto_Store.Domain.Entities.Products;
 using Bugeto_Store.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,8 @@ namespace Bugeto_Store.Application.Interfaces.Contexts
         DbSet<ProductImages> ProductImages { get; set; }
         DbSet<Slider> Sliders { get; set; }
         DbSet<HomePageImages> HomePageImages { get; set; }
+        DbSet<Cart> Carts { get; set; }
+        DbSet<CartItem> CartItems { get; set; }
 
         int SaveChanges(bool acceptAllChangesOnSuccess);
         int SaveChanges();

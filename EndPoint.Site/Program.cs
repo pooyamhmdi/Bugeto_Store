@@ -1,5 +1,6 @@
 ﻿using Bugeto_Store.Application.Interfaces.Contexts;
 using Bugeto_Store.Application.Interfaces.FacadPatterns;
+using Bugeto_Store.Application.Services.Carts;
 using Bugeto_Store.Application.Services.Common.Queries.GetCategory;
 using Bugeto_Store.Application.Services.Common.Queries.GetHomePageImages;
 using Bugeto_Store.Application.Services.Common.Queries.GetMenuItem;
@@ -16,6 +17,7 @@ using Bugeto_Store.Application.Services.Users.Commands.UserStatusChange;
 using Bugeto_Store.Application.Services.Users.Queries.GetRoles;
 using Bugeto_Store.Application.Services.Users.Queries.GetUsers;
 using Bugeto_Store.Presistence.Contexts;
+using EndPoint.Site.Utilities;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -62,7 +64,10 @@ builder.Services.AddScoped<ISlidersFacad, SlidersFacad>();
 
 //homepages images
 builder.Services.AddScoped<IHomePageImagesFacad, HomePageImagesFacad>();
-
+//cart
+builder.Services.AddScoped<ICartService , CartService>();  
+// cookie
+builder.Services.AddScoped<CookiesManeger>();   
 
 
 
