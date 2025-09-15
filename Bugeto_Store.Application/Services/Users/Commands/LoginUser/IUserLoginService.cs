@@ -9,7 +9,7 @@ namespace Bugeto_Store.Application.Services.Users.Commands.LoginUser
 {
     public interface IUserLoginService
     {
-        public ResultDto<ResultUserloginDto> Execute(string Username, string Password);
+        public ResultDto<ResultUserloginDto> Execute(string Email, string Password);
     }
 }
 

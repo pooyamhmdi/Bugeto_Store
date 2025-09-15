@@ -1,4 +1,5 @@
 ﻿using Bugeto_Store.Domain.Entities.Cart;
+using Bugeto_Store.Domain.Entities.Fainances;
 using Bugeto_Store.Domain.Entities.HomePages;
 using Bugeto_Store.Domain.Entities.Products;
 using Bugeto_Store.Domain.Entities.Users;
@@ -16,9 +17,9 @@ namespace Bugeto_Store.Application.Interfaces.Contexts
     public interface IDatabaseContext
     {
 
-         DbSet<User> Users { get; set; }
-         DbSet<Role> Roles { get; set; }
-         DbSet<UserInRole> UserInRoles { get; set; }
+        DbSet<User> Users { get; set; }
+        DbSet<Role> Roles { get; set; }
+        DbSet<UserInRole> UserInRoles { get; set; }
         DbSet<Category> Categories { get; set; }
         DbSet<Product> Products { get; set; }
         DbSet<ProductFeatures> ProductsFeatures { get; set; }
@@ -27,6 +28,7 @@ namespace Bugeto_Store.Application.Interfaces.Contexts
         DbSet<HomePageImages> HomePageImages { get; set; }
         DbSet<Cart> Carts { get; set; }
         DbSet<CartItem> CartItems { get; set; }
+        DbSet<RequestPay> RequestPays { get; set; }
 
         int SaveChanges(bool acceptAllChangesOnSuccess);
         int SaveChanges();
@@ -34,4 +36,3 @@ namespace Bugeto_Store.Application.Interfaces.Contexts
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken());
     }
 }
- 

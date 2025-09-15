@@ -1,6 +1,7 @@
 ﻿using Bugeto_Store.Application.Interfaces.Contexts;
 using Bugeto_Store.Common.Roles;
 using Bugeto_Store.Domain.Entities.Cart;
+using Bugeto_Store.Domain.Entities.Fainances;
 using Bugeto_Store.Domain.Entities.HomePages;
 using Bugeto_Store.Domain.Entities.Products;
 using Bugeto_Store.Domain.Entities.Users;
@@ -38,6 +39,7 @@ namespace Bugeto_Store.Presistence.Contexts
         public DbSet<HomePageImages> HomePageImages { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
+        public DbSet<RequestPay> RequestPays { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -64,6 +66,7 @@ namespace Bugeto_Store.Presistence.Contexts
             modelBuilder.Entity<HomePageImages>().HasQueryFilter(p => !p.IsRemoved);
             modelBuilder.Entity<Cart>().HasQueryFilter(p => !p.IsRemoved);
             modelBuilder.Entity<CartItem>().HasQueryFilter(p => !p.IsRemoved);
+            modelBuilder.Entity<RequestPay>().HasQueryFilter(p => !p.IsRemoved);
 
 
         }

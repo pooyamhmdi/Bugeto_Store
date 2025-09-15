@@ -5,6 +5,7 @@ using Bugeto_Store.Application.Services.Common.Queries.GetCategory;
 using Bugeto_Store.Application.Services.Common.Queries.GetHomePageImages;
 using Bugeto_Store.Application.Services.Common.Queries.GetMenuItem;
 using Bugeto_Store.Application.Services.Common.Queries.GetSliders;
+using Bugeto_Store.Application.Services.Fainances.Commands;
 using Bugeto_Store.Application.Services.HomePages.Commands.AddHomePageImages;
 using Bugeto_Store.Application.Services.HomePages.FacadPattern;
 using Bugeto_Store.Application.Services.Products.Commands.RemoveCategory;
@@ -16,12 +17,15 @@ using Bugeto_Store.Application.Services.Users.Commands.RemoveUser;
 using Bugeto_Store.Application.Services.Users.Commands.UserStatusChange;
 using Bugeto_Store.Application.Services.Users.Queries.GetRoles;
 using Bugeto_Store.Application.Services.Users.Queries.GetUsers;
+using Bugeto_Store.Common.Roles;
 using Bugeto_Store.Presistence.Contexts;
 using EndPoint.Site.Utilities;
+
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,13 +39,23 @@ builder.Services.AddAuthentication(options =>
     options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 }).AddCookie(options =>
 {
-    options.LoginPath = new PathString("/");
+    options.LoginPath = new PathString("/Authentication/signin");
     options.ExpireTimeSpan = TimeSpan.FromMinutes(5.0);
 });
 // اضافه کردن DbContext به DI container
 builder.Services.AddDbContext<DatabaseContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
+
+
+
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy(UserRoles.Admin, policy => policy.RequireRole(UserRoles.Admin));
+    options.AddPolicy(UserRoles.Customer, policy => policy.RequireRole(UserRoles.Customer));
+    options.AddPolicy(UserRoles.Operator, policy => policy.RequireRole(UserRoles.Operator));
+});
 
 
 builder.Services.AddScoped<IDatabaseContext, DatabaseContext>();
@@ -68,7 +82,8 @@ builder.Services.AddScoped<IHomePageImagesFacad, HomePageImagesFacad>();
 builder.Services.AddScoped<ICartService , CartService>();  
 // cookie
 builder.Services.AddScoped<CookiesManeger>();   
-
+// request pay
+builder.Services.AddScoped<IAddRequestPayService, AddRequestPayService>();
 
 
 
@@ -86,8 +101,8 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles();
 app.UseHttpsRedirection();
 app.UseRouting();
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 app.MapStaticAssets();
 
 app.MapControllerRoute(

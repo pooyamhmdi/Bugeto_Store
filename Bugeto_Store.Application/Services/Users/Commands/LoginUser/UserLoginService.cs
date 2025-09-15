@@ -1,6 +1,8 @@
 ﻿using Bugeto_Store.Application.Interfaces.Contexts;
 using Bugeto_Store.Common;
 using Bugeto_Store.Common.Dto;
+using Bugeto_Store.Domain.Entities.Users;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bugeto_Store.Application.Services.Users.Commands.LoginUser
@@ -12,9 +14,9 @@ namespace Bugeto_Store.Application.Services.Users.Commands.LoginUser
         {
             _context = context;
         }
-        public ResultDto<ResultUserloginDto> Execute(string Username, string Password)
+        public ResultDto<ResultUserloginDto> Execute(string Email, string Password)
         {
-            if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Password))
+            if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
             {
                 return new ResultDto<ResultUserloginDto>()
                 {
@@ -32,7 +34,7 @@ namespace Bugeto_Store.Application.Services.Users.Commands.LoginUser
             var user = _context.Users
                 .Include(p => p.UserInRoles)
                 .ThenInclude(p => p.Role)
-                .Where(p => p.Email.Equals(p.Email)
+                .Where(p => p.Email.Equals(Email)
             && p.IsActive == true)
             .FirstOrDefault();
 
@@ -51,6 +53,7 @@ namespace Bugeto_Store.Application.Services.Users.Commands.LoginUser
 
             var passwordHasher = new PasswordHasher();
             bool resultVerifyPassword = passwordHasher.VerifyPassword(user.Pasword, Password);
+
             if (resultVerifyPassword == false)
             {
                 return new ResultDto<ResultUserloginDto>()
@@ -65,10 +68,10 @@ namespace Bugeto_Store.Application.Services.Users.Commands.LoginUser
             }
 
 
-            var roles = "";
+            List<string> roles = new List<string>();
             foreach (var item in user.UserInRoles)
             {
-                roles += $"{item.Role.Name}";
+                roles.Add(item.Role.Name);
             }
 
 

@@ -16,6 +16,7 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.0-preview.7.25380.108" />
+		<PackageReference Include="Microsoft.Extensions.Identity.Core" Version="10.0.0-rc.1.25451.107" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -25,6 +26,7 @@
 
 	<ItemGroup>
 	  <Folder Include="Services\Common\Commands\" />
+	  <Folder Include="Services\Fainances\Queries\" />
 	</ItemGroup>
 
 </Project>
