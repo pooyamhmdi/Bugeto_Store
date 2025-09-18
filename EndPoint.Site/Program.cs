@@ -2,12 +2,13 @@
 using Bugeto_Store.Application.Interfaces.FacadPatterns;
 using Bugeto_Store.Application.Services.Carts;
 using Bugeto_Store.Application.Services.Common.Queries.GetCategory;
-using Bugeto_Store.Application.Services.Common.Queries.GetHomePageImages;
 using Bugeto_Store.Application.Services.Common.Queries.GetMenuItem;
-using Bugeto_Store.Application.Services.Common.Queries.GetSliders;
-using Bugeto_Store.Application.Services.Fainances.Commands;
-using Bugeto_Store.Application.Services.HomePages.Commands.AddHomePageImages;
+using Bugeto_Store.Application.Services.Fainances.Commands.AddRequestPay;
+using Bugeto_Store.Application.Services.Fainances.FacadPattern;
+using Bugeto_Store.Application.Services.Fainances.Queries.GetRequestPay;
 using Bugeto_Store.Application.Services.HomePages.FacadPattern;
+using Bugeto_Store.Application.Services.Orders.Commands;
+using Bugeto_Store.Application.Services.Orders.FacadPattern;
 using Bugeto_Store.Application.Services.Products.Commands.RemoveCategory;
 using Bugeto_Store.Application.Services.Products.FacadPattern;
 using Bugeto_Store.Application.Services.Users.Commands.EditUser;
@@ -20,12 +21,11 @@ using Bugeto_Store.Application.Services.Users.Queries.GetUsers;
 using Bugeto_Store.Common.Roles;
 using Bugeto_Store.Presistence.Contexts;
 using EndPoint.Site.Utilities;
-
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using System;
-
+using Zarinpal.AspNetCore.Consts;
+using Zarinpal.AspNetCore.Enums;
+using Zarinpal.AspNetCore.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,6 +57,13 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy(UserRoles.Operator, policy => policy.RequireRole(UserRoles.Operator));
 });
 
+builder.Services.AddZarinpal(options =>
+{
+    options.MerchantId = "xxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx";
+    options.ZarinpalMode = ZarinpalMode.Sandbox;
+    options.Currency = ZarinpalCurrency.IRT;
+});
+
 
 builder.Services.AddScoped<IDatabaseContext, DatabaseContext>();
 builder.Services.AddScoped<IGetUsersService, GetUsersService>();
@@ -85,8 +92,12 @@ builder.Services.AddScoped<CookiesManeger>();
 // request pay
 builder.Services.AddScoped<IAddRequestPayService, AddRequestPayService>();
 
+builder.Services.AddScoped<IGetRequestPayService, GetRequestPayService>();
 
+builder.Services.AddScoped<IAddNewOrderService, AddNewOrderService>();
 
+builder.Services.AddScoped<IFainancFacad, FainancFacad>();
+builder.Services.AddScoped<IOrderFacad, OrderFacad>();
 
 var app = builder.Build();
 

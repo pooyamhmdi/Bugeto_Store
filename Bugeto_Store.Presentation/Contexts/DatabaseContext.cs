@@ -3,6 +3,7 @@ using Bugeto_Store.Common.Roles;
 using Bugeto_Store.Domain.Entities.Cart;
 using Bugeto_Store.Domain.Entities.Fainances;
 using Bugeto_Store.Domain.Entities.HomePages;
+using Bugeto_Store.Domain.Entities.Orders;
 using Bugeto_Store.Domain.Entities.Products;
 using Bugeto_Store.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
@@ -40,9 +41,20 @@ namespace Bugeto_Store.Presistence.Contexts
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<RequestPay> RequestPays { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Order>()
+                .HasOne(p => p.User)
+                .WithMany(p => p.Orders)
+                .OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<Order>()
+                .HasOne(p => p.RequestPay)
+                .WithMany(p => p.Orders)
+                .OnDelete(DeleteBehavior.NoAction);
+
             //اعمال ایندکس بر روی فیلد ایمیل
             //اعمال عدم تکراری بودن  ایمیل
             modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
@@ -67,6 +79,8 @@ namespace Bugeto_Store.Presistence.Contexts
             modelBuilder.Entity<Cart>().HasQueryFilter(p => !p.IsRemoved);
             modelBuilder.Entity<CartItem>().HasQueryFilter(p => !p.IsRemoved);
             modelBuilder.Entity<RequestPay>().HasQueryFilter(p => !p.IsRemoved);
+            modelBuilder.Entity<Order>().HasQueryFilter(p => !p.IsRemoved);
+            modelBuilder.Entity<OrderDetail>().HasQueryFilter(p => !p.IsRemoved);
 
 
         }

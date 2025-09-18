@@ -56,6 +56,7 @@ namespace Bugeto_Store.Application.Services.Carts
                     Count = 1,
                     Price = product.Price,
                     Product = product,
+                    CartId = cart.Id,
 
                 };
                 _context.CartItems.Add(newCartItem);
@@ -74,10 +75,20 @@ namespace Bugeto_Store.Application.Services.Carts
             var cart = _context.Carts
                 .Include(p => p.CartItems)
                 .ThenInclude(p => p.Product)
-                .ThenInclude(p=> p.ProductImages)
-                .Where(p => p.BrowserId == BrowserId && p.Finished == false  )
+                .ThenInclude(p => p.ProductImages)
+                .Where(p => p.BrowserId == BrowserId && p.Finished == false)
                 .OrderByDescending(p => p.Id)
                 .FirstOrDefault();
+            if (cart == null)
+            {
+                return new ResultDto<CartDto>()
+                {
+                    Data = new CartDto
+                    {
+                        CartItems = new List<CartItemDto>()
+                    },
+                };
+            }
             if (UserId != null)
             {
                 var user = _context.Users.Find(UserId);
@@ -89,14 +100,14 @@ namespace Bugeto_Store.Application.Services.Carts
                 Data = new CartDto()
                 {
                     ProductCount = cart.CartItems.Count,
-                    SumAmount = cart.CartItems.Sum(p=> p.Price * p.Count),
+                    SumAmount = cart.CartItems.Sum(p => p.Price * p.Count),
                     CartItems = cart.CartItems.Select(p => new CartItemDto
                     {
                         Id = p.Id,
                         Count = p.Count,
                         Price = p.Price,
                         Product = p.Product.Name,
-                        Images = p.Product?.ProductImages?.FirstOrDefault()?.Src?? "",
+                        Images = p.Product?.ProductImages?.FirstOrDefault()?.Src ?? "",
 
                     }).ToList(),
                 },
@@ -107,7 +118,7 @@ namespace Bugeto_Store.Application.Services.Carts
         public ResultDto LowOff(long CartItemId)
         {
             var cartItem = _context.CartItems.Find(CartItemId);
-            if (cartItem.Count <= 1 )
+            if (cartItem.Count <= 1)
             {
                 return new ResultDto
                 {

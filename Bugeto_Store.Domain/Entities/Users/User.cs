@@ -1,4 +1,5 @@
 ﻿using Bugeto_Store.Domain.Entities.Common;
+using Bugeto_Store.Domain.Entities.Orders;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -16,5 +17,7 @@ namespace Bugeto_Store.Domain.Entities.Users
         public string Pasword { get; set; }
         public bool IsActive { get; set; }
         public ICollection<UserInRole> UserInRoles { get; set; }
+        public ICollection<Order> Orders { get; set; }
+
     }
 }

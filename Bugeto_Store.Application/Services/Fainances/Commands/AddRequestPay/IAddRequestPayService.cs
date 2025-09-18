@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bugeto_Store.Application.Services.Fainances.Commands
+namespace Bugeto_Store.Application.Services.Fainances.Commands.AddRequestPay
 {
     public interface IAddRequestPayService
     {

@@ -1,4 +1,5 @@
 ﻿using Bugeto_Store.Domain.Entities.Common;
+using Bugeto_Store.Domain.Entities.Orders;
 using Bugeto_Store.Domain.Entities.Users;
 using System;
 using System.Collections.Generic;
@@ -18,5 +19,6 @@ namespace Bugeto_Store.Domain.Entities.Fainances
         public DateTime? PayDate { get; set; }
         public string? Autority { get; set; }
         public long RefId { get; set; } = 0;
+        public ICollection<Order> Orders { get; set; }
     }
 }

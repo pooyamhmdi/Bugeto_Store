@@ -1,6 +1,7 @@
 ﻿using Bugeto_Store.Domain.Entities.Cart;
 using Bugeto_Store.Domain.Entities.Fainances;
 using Bugeto_Store.Domain.Entities.HomePages;
+using Bugeto_Store.Domain.Entities.Orders;
 using Bugeto_Store.Domain.Entities.Products;
 using Bugeto_Store.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +30,8 @@ namespace Bugeto_Store.Application.Interfaces.Contexts
         DbSet<Cart> Carts { get; set; }
         DbSet<CartItem> CartItems { get; set; }
         DbSet<RequestPay> RequestPays { get; set; }
+        DbSet<Order> Orders { get; set; }
+        DbSet<OrderDetail> OrderDetails { get; set; }
 
         int SaveChanges(bool acceptAllChangesOnSuccess);
         int SaveChanges();
